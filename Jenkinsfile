@@ -8,8 +8,6 @@ pipeline {
     REPO          = 'app-images'
     IMAGE_NAME    = 'demo-api'
     IMAGE_URI     = "us-central1-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE_NAME}"
-    GCLOUD_HOME = '/Users/shantanukshatriya/Downloads/google-cloud-sdk/bin/gcloud' // adjust to your node
-    PATH = "${GCLOUD_HOME}/bin:${PATH}"
   }
 
   stages {
@@ -18,15 +16,15 @@ pipeline {
       steps { checkout scm }
     }
 
-    stage('Check gcloud') {
-      steps {
-        sh '''
-          echo "PATH = $PATH"
-          which gcloud || echo "gcloud not found"
-          gcloud --version || true
-        '''
-      }
-    }
+    // stage('Check gcloud') {
+    //   steps {
+    //     sh '''
+    //       echo "PATH = $PATH"
+    //       which gcloud || echo "gcloud not found"
+    //       gcloud --version || true
+    //     '''
+    //   }
+    // }
 
     stage('Set Version') {
       steps {
