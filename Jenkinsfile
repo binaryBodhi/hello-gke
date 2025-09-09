@@ -8,6 +8,8 @@ pipeline {
     REPO          = 'app-images'
     IMAGE_NAME    = 'demo-api'
     IMAGE_URI     = "us-central1-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE_NAME}"
+    GCLOUD_HOME = '/Users/shantanukshatriya/Downloads/google-cloud-sdk/bin/gcloud' // adjust to your node
+    PATH = "${GCLOUD_HOME}/bin:${PATH}"
   }
 
   stages {
