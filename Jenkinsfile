@@ -18,6 +18,16 @@ pipeline {
       steps { checkout scm }
     }
 
+    stage('Check gcloud') {
+      steps {
+        sh '''
+          echo "PATH = $PATH"
+          which gcloud || echo "gcloud not found"
+          gcloud --version || true
+        '''
+      }
+    }
+
     stage('Set Version') {
       steps {
         script {
