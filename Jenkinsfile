@@ -1,6 +1,11 @@
 pipeline {
   
   agent any
+
+   environment {
+    // Add Homebrew bin/sbin *before* the inherited PATH
+    PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}"
+  }
   
   stages {
     
