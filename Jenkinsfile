@@ -8,7 +8,7 @@ pipeline {
     REPO          = 'app-images'
     IMAGE_NAME    = 'demo-api'
     IMAGE_URI     = "us-central1-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE_NAME}"
-    PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:${PATH}"
+    // PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:${PATH}"
   }
 
 
@@ -45,11 +45,12 @@ pipeline {
           sh '''
             gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
             gcloud config set project ${PROJECT_ID}
-            
+            gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
+
             // # Direct Docker login using service account JSON key
             // cat "$GOOGLE_APPLICATION_CREDENTIALS" | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
 
-            gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
+            
           '''
         }
       }
