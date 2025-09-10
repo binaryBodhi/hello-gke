@@ -31,7 +31,7 @@ pipeline {
         sh '''
           python3 -m venv .venv
           . .venv/bin/activate
-          pip install -r app/requirements.txt
+          pip install -r requirements.txt
           python -c "import flask; print('ok')"
         '''
       }
