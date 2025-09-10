@@ -44,6 +44,7 @@ pipeline {
     REPO          = 'app-images'
     IMAGE_NAME    = 'demo-api'
     IMAGE_URI     = "us-central1-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE_NAME}"
+    PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}"
   }
 
   stages {
