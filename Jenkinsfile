@@ -47,8 +47,8 @@ pipeline {
             gcloud config set project ${PROJECT_ID}
             gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
 
-            // # Direct Docker login using service account JSON key
-            // cat "$GOOGLE_APPLICATION_CREDENTIALS" | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
+            # Direct Docker login using service account JSON key
+            # cat "$GOOGLE_APPLICATION_CREDENTIALS" | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
 
             
           '''
@@ -59,8 +59,8 @@ pipeline {
     stage('Build & Push Image') {
       steps {
         sh '''
-          // echo 'Logging in to Artifact Registry...'
-          // gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-southi-docker .-pkg.dev
+          # echo 'Logging in to Artifact Registry...'
+          # gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-southi-docker .-pkg.dev
 
           docker build -t ${IMAGE_URI}:${APP_TAG} -t ${IMAGE_URI}:latest .
           docker push ${IMAGE_URI}:${APP_TAG}
