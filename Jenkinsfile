@@ -52,6 +52,9 @@ pipeline {
     stage('Build & Push Image') {
       steps {
         sh '''
+          echo 'Logging in to Artifact Registry...'
+          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-southi-docker .-pkg.dev
+
           docker build -t ${IMAGE_URI}:${APP_TAG} -t ${IMAGE_URI}:latest .
           docker push ${IMAGE_URI}:${APP_TAG}
           docker push ${IMAGE_URI}:latest
