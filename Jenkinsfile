@@ -48,7 +48,7 @@ pipeline {
             gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
 
             # Direct Docker login using service account JSON key
-            cat "$GOOGLE_APPLICATION_CREDENTIALS" | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
+            # cat "$GOOGLE_APPLICATION_CREDENTIALS" | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
 
             
           '''
