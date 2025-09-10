@@ -8,7 +8,7 @@ pipeline {
     REPO          = 'app-images'
     IMAGE_NAME    = 'demo-api'
     IMAGE_URI     = "us-central1-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE_NAME}"
-    PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:${PATH}"
+    // PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:${PATH}"
   }
 
 
@@ -60,7 +60,7 @@ pipeline {
       steps {
         sh '''
           # echo 'Logging in to Artifact Registry...'
-          # gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-southi-docker .-pkg.dev
+          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://${REGION}-docker.pkg.dev
 
           docker build -t ${IMAGE_URI}:${APP_TAG} -t ${IMAGE_URI}:latest .
           docker push ${IMAGE_URI}:${APP_TAG}
