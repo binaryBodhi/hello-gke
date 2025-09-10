@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    # set these to your project/region/repo
+    // # set these to your project/region/repo
     PROJECT_ID    = 'bright-feat-471605-t7'
     REGION        = 'us-central1'
     REPO          = 'app-images'
