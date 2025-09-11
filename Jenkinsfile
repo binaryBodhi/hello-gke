@@ -84,7 +84,7 @@ pipeline {
           kubectl apply -f k8s/service.yaml
 
           # (optional) roll out status
-          kubectl rollout status deploy/demo-api -n demo --timeout=120s
+          # kubectl rollout status deploy/demo-api -n demo --timeout=120s
         '''
       }
     }
