@@ -76,7 +76,7 @@ pipeline {
           gcloud container clusters get-credentials autopilot-cluster-1 --region ${REGION}
 
           # update k8s manifests to use the new tag
-          sed -i "s#${REGION}-docker.pkg.dev/.*/${IMAGE_NAME}:.*#${IMAGE_URI}:${APP_TAG}#g" k8s/deployment.yaml
+          sed -i'' -e "s#${REGION}-docker.pkg.dev/.*/${IMAGE_NAME}:.*#${IMAGE_URI}:${APP_TAG}#g" k8s/deployment.yaml
 
           # create namespace if missing, then apply
           kubectl create namespace demo --dry-run=client -o yaml | kubectl apply -f -
