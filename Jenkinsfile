@@ -73,7 +73,7 @@ pipeline {
       steps {
         sh '''
           # get cluster credentials for kubectl
-          gcloud container clusters get-credentials dev-cluster --region ${REGION}
+          gcloud container clusters get-credentials autopilot-cluster-1 --region ${REGION}
 
           # update k8s manifests to use the new tag
           sed -i "s#${REGION}-docker.pkg.dev/.*/${IMAGE_NAME}:.*#${IMAGE_URI}:${APP_TAG}#g" k8s/deployment.yaml
