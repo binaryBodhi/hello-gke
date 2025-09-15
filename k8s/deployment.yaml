@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: demo-api
-        image: us-central1-docker.pkg.dev/bright-feat-471605-t7/app-images/demo-api:latest
+        image: us-central1-docker.pkg.dev/test-project-472205/app-images/demo-api:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
