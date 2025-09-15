@@ -71,7 +71,7 @@ pipeline {
           docker buildx build \
             --platform linux/amd64 \
             -t ${IMAGE_URI}:${APP_TAG} \
-            -t ${IMAGE_URI}:latest \
+            -t ${IMAGE_URI}:${K8S_NAMESPACE} \
             --push .
         '''
       }
@@ -97,7 +97,8 @@ pipeline {
           gcloud container clusters get-credentials autopilot-cluster-1 --region ${REGION}
 
           # update k8s manifests to use the new tag
-          sed -i'' -e "s#${REGION}-docker.pkg.dev/.*/${IMAGE_NAME}:.*#${IMAGE_URI}:${APP_TAG}#g" k8s/deployment.yaml
+          sed -i'' -e "s#${REGION}-docker.pkg.dev/.*/${IMAGE_NAME}:.*#${IMAGE_URI}:${K8S_NAMESPACE}#g" k8s/deployment.yaml
+          # sed -i'' -e "s#${REGION}-docker.pkg.dev/.*/${IMAGE_NAME}:.*#${IMAGE_URI}:${APP_TAG}#g" k8s/deployment.yaml
 
           # create namespace if missing, then apply
           kubectl create namespace ${K8S_NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
