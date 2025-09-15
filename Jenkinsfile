@@ -1,6 +1,10 @@
 pipeline {
   agent any
 
+  parameters {
+    choice(name: 'ENV', choices: ['dev', 'sit', 'uat'], description: 'Target environment/namespace')
+  }
+
   environment {
     // # set these to your project/region/repo
     PROJECT_ID    = 'test-project-472205'
@@ -9,6 +13,7 @@ pipeline {
     IMAGE_NAME    = 'demo-api'
     IMAGE_URI     = "us-central1-docker.pkg.dev/${PROJECT_ID}/${REPO}/${IMAGE_NAME}"
     // PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:${PATH}"
+    K8S_NAMESPACE = "${params.ENV}"
   }
 
 
@@ -95,9 +100,9 @@ pipeline {
           sed -i'' -e "s#${REGION}-docker.pkg.dev/.*/${IMAGE_NAME}:.*#${IMAGE_URI}:${APP_TAG}#g" k8s/deployment.yaml
 
           # create namespace if missing, then apply
-          kubectl create namespace demo --dry-run=client -o yaml | kubectl apply -f -
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
+          kubectl create namespace ${K8S_NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
+          kubectl apply -n ${K8S_NAMESPACE} -f k8s/deployment.yaml
+          kubectl apply  -n ${K8S_NAMESPACE} -f k8s/service.yaml
 
           # (optional) roll out status
           # kubectl rollout status deploy/demo-api -n demo --timeout=120s
